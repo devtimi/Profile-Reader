@@ -10,8 +10,8 @@ Begin Window Wnd_Main
    FullScreenButton=   False
    HasBackColor    =   False
    Height          =   400
-   ImplicitInstance=   True
    LiveResize      =   True
+   ImplicitInstance=   False
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
@@ -21,10 +21,10 @@ Begin Window Wnd_Main
    MinHeight       =   200
    MinimizeButton  =   True
    MinWidth        =   820
-   Placement       =   0
+   Placement       =   3
    Resizeable      =   True
    Title           =   "Profile Reader"
-   Visible         =   True
+   Visible         =   False
    Width           =   918
    Begin PRListBox lbProfiles
       AutoDeactivate  =   True
@@ -86,7 +86,7 @@ Begin Window Wnd_Main
       ColumnWidths    =   ",70,100,100,130"
       DataField       =   ""
       DataSource      =   ""
-      DefaultRowHeight=   -1
+      DefaultRowHeight=   20
       Enabled         =   True
       EnableDrag      =   False
       EnableDragReorder=   False
@@ -115,7 +115,7 @@ Begin Window Wnd_Main
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      TextFont        =   "SmallSystem"
+      TextFont        =   "System"
       TextSize        =   0.0
       TextUnit        =   0
       Top             =   64
@@ -510,10 +510,16 @@ End
 	#tag Constant, Name = kColumnTimeSpent, Type = Double, Dynamic = False, Default = \"2", Scope = Protected
 	#tag EndConstant
 
-	#tag Constant, Name = kExpandedColor, Type = Color, Dynamic = False, Default = \"&cD2CBFD", Scope = Protected
+	#tag Constant, Name = kExpandedColorDark, Type = Color, Dynamic = False, Default = \"&c585471", Scope = Protected
 	#tag EndConstant
 
-	#tag Constant, Name = kMouseOverColor, Type = Color, Dynamic = False, Default = \"&cFFA7AA", Scope = Protected
+	#tag Constant, Name = kExpandedColorLight, Type = Color, Dynamic = False, Default = \"&cD2CBFD", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kMouseOverColorDark, Type = Color, Dynamic = False, Default = \"&c7F4144", Scope = Protected
+	#tag EndConstant
+
+	#tag Constant, Name = kMouseOverColorLight, Type = Color, Dynamic = False, Default = \"&cFFA7AA", Scope = Protected
 	#tag EndConstant
 
 
@@ -749,11 +755,11 @@ End
 		  end if
 		  
 		  if row = zMouseOverRow then
-		    g.ForeColor = kMouseOverColor
+		    g.ForeColor = if(me.bDark, kMouseOverColorDark, kMouseOverColorLight)
 		    g.FillRect( 0, 0, g.Width, g.Height )
 		    zMouseOverPrevious = zMouseOverRow
 		  elseif row < me.ListCount and profile <> nil and profile.Expanded then
-		    g.ForeColor = kExpandedColor
+		    g.ForeColor = if(me.bDark, kExpandedColorDark, kExpandedColorLight)
 		    g.FillRect( 0, 0, g.Width, g.Height )
 		  else
 		    changeIt = False

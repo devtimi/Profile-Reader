@@ -3,17 +3,21 @@ Protected Class PRListBox
 Inherits ListBox
 	#tag Event
 		Function CellBackgroundPaint(g As Graphics, row As Integer, column As Integer) As Boolean
+		  if row = 0 and column = 0 then
+		    bDark = Color.IsDarkMode
+		    
+		  end
+		  
 		  if RaiseEvent CellBackgroundPaint( g, row, column ) then
 		    return True
 		  end if
 		  
 		  if not me.Selected( row ) and row mod 2 = 1 then
-		    g.ForeColor = kAlternateRowColor
+		    g.ForeColor = if(me.bDark, kAlternateRowColorDark, kAlternateRowColorLight)
 		    g.FillRect 0, 0, g.Width, g.Height
-		    return True
-		  else
-		    return False
-		  end if
+		    return true
+		    
+		  end
 		  
 		End Function
 	#tag EndEvent
@@ -24,7 +28,15 @@ Inherits ListBox
 	#tag EndHook
 
 
-	#tag Constant, Name = kAlternateRowColor, Type = Color, Dynamic = False, Default = \"&cEEF1FD", Scope = Protected
+	#tag Property, Flags = &h0
+		bDark As Boolean
+	#tag EndProperty
+
+
+	#tag Constant, Name = kAlternateRowColorDark, Type = Color, Dynamic = False, Default = \"&c1C1C1C", Scope = Private
+	#tag EndConstant
+
+	#tag Constant, Name = kAlternateRowColorLight, Type = Color, Dynamic = False, Default = \"&cEEF1FD", Scope = Private
 	#tag EndConstant
 
 

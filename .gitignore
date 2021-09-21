@@ -1,4 +1,15 @@
+# Xojo (formerly REALbasic and Real Studio)
 
+Builds*
+*.debug
+*.debug.app
+Debug*.exe
+Debug*/Debug*.exe
+Debug*/Debug*\ Libs
+.DS_Store
+*.rbuistate
 *.xojo_uistate
-Builds - *
-*.gz
+*.obsolete*
+SSH Helper/Frameworks
+SFTP Helper/Frameworks
+Helpers

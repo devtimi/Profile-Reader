@@ -349,7 +349,7 @@ End
 		  
 		  // Is there anything there?
 		  if newDict.Count = 0 then
-		    
+		    zParentFolder = nil
 		    pShowMessageDialog( "All profiles have been deleted.", "Close" )
 		    
 		  else
@@ -847,6 +847,13 @@ End
 		    zParentLastModDate = pFolder.ModificationDate
 		  elseif zParentLastModDate.TotalSeconds <> pFolder.ModificationDate.TotalSeconds then
 		    pScanParentFolder
+		    
+		    // Scanning folder found no Profiles, window was closed by pShowMessageDialog
+		    if ParentFolder = nil then
+		      return
+		      
+		    end
+		    
 		  end if
 		  
 		  lblParentPath.Text = pFolder.NativePath
